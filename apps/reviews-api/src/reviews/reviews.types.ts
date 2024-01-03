@@ -4,6 +4,7 @@ export interface ReviewsCountResponse {
 	reviewsCount: number;
 }
 
+// TODO: Consider removing this.
 // export interface ReviewExt extends Review {
 // 	company: Company;
 // 	user: User;
