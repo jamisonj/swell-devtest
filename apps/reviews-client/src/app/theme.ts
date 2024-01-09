@@ -51,6 +51,25 @@ const palette: PaletteOptions = {
 };
 
 export const theme = createTheme({
+	components: {
+		MuiCardHeader: {
+			styleOverrides: {
+				title: {
+					fontSize: 16,
+				},
+				root: {
+					paddingBottom: 5,
+				},
+			},
+		},
+		MuiRating: {
+			styleOverrides: {
+				root: {
+					paddingLeft: 16,
+				},
+			},
+		},
+	},
 	palette,
 	typography: {
 		fontFamily: ['Montserrat', 'Helvetica Neue', 'Arial', 'sans-serif'].join(','),
