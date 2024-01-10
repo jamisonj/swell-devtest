@@ -1,14 +1,8 @@
-import { Company, Review, User } from '@prisma/client';
+import { Company, User } from '@prisma/client';
 
 export interface ReviewsCountResponse {
 	reviewsCount: number;
 }
-
-// TODO: Consider removing this.
-// export interface ReviewExt extends Review {
-// 	company: Company;
-// 	user: User;
-// }
 
 export interface ReviewsResponse {
 	id: string;

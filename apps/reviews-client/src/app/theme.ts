@@ -52,6 +52,13 @@ const palette: PaletteOptions = {
 
 export const theme = createTheme({
 	components: {
+		MuiGrid: {
+			styleOverrides: {
+				root: {
+					marginTop: 16,
+				},
+			},
+		},
 		MuiCardHeader: {
 			styleOverrides: {
 				title: {

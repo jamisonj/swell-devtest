@@ -1,8 +1,6 @@
 import Alert from '@mui/material/Alert';
 import TaskIcon from '@mui/icons-material/Task';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Grid from '@mui/material/Grid';
@@ -19,22 +17,21 @@ export interface ReviewsListProps {}
 
 export function ReviewsList(props: ReviewsListProps) {
 	const [reviews, setReviews] = useState([] as Array<ReviewsResponse>);
-	console.log('reviews', reviews);
+	const [error, setError] = useState('');
 	useEffect(() => {
 		fetch(`${process.env['NX_API_URL']}/api/reviews`)
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				console.log(data);
-				setReviews(data);
+			.then((res) => res.json())
+			.then((data) => setReviews(data))
+			.catch((error) => {
+				console.log('error.message', error.message);
+				setError(error.message);
 			});
 	}, []);
 	return (
 		<div>
-			{reviews && reviews.length ? (
+			{reviews && reviews.length > 0 ? (
 				reviews.map((review: ReviewsResponse) => (
-					<Grid item key={review.id}>
+					<Grid item key={review.id} aria-label="review-grid">
 						<Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
 							<CardHeader
 								action={
@@ -54,7 +51,7 @@ export function ReviewsList(props: ReviewsListProps) {
 				))
 			) : (
 				<Alert severity="error" icon={<TaskIcon />}>
-					No Reviews have been entered.
+					{error ? error : 'No reviews were found.'}
 				</Alert>
 			)}
 		</div>
