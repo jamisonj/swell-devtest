@@ -9,7 +9,7 @@ describe('App', () => {
 		nock('http://localhost:3333').persist().get('/api/reviews').reply(200, mockResponse);
 	});
 	it('should render successfully', async () => {
-		const { baseElement } = await render(<App />);
+		const { baseElement } = render(<App />);
 
 		expect(baseElement).toBeTruthy();
 	});
