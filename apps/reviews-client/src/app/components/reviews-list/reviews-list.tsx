@@ -18,18 +18,28 @@ export interface ReviewsListProps {}
 export function ReviewsList(props: ReviewsListProps) {
 	const [reviews, setReviews] = useState([] as Array<ReviewsResponse>);
 	const [error, setError] = useState('');
+
+	const errorMessage = 'Error occurred while trying to fetch reviews: ';
+
 	useEffect(() => {
 		fetch(`${process.env['NX_API_URL']}/api/reviews`)
 			.then((res) => res.json())
-			.then((data) => setReviews(data))
+			.then((data) => {
+				if (data.error) {
+					setReviews([]);
+					setError(errorMessage + data.error);
+				} else {
+					setReviews(data);
+				}
+			})
 			.catch((error) => {
-				console.log('error.message', error.message);
-				setError(error.message);
+				setError(errorMessage + error.message);
 			});
 	}, []);
+
 	return (
 		<div>
-			{reviews && reviews.length > 0 ? (
+			{reviews && Array.isArray(reviews) && reviews.length ? (
 				reviews.map((review: ReviewsResponse) => (
 					<Grid item key={review.id} aria-label="review-grid">
 						<Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
