@@ -11,13 +11,6 @@ export class ReviewsController {
 	async getReviews(): Promise<Array<ReviewsResponse>> {
 		const result = await this.reviewsService.getReviews();
 		return result;
-
-		// throw new HttpException({
-		// 	status: HttpStatus.INTERNAL_SERVER_ERROR,
-		// 	error: 'Internal server error',
-		// }, HttpStatus.INTERNAL_SERVER_ERROR, {
-		// 	cause: Error
-		// });
 	}
 
 	@Get('/count')

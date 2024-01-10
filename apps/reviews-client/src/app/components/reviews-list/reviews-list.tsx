@@ -19,9 +19,8 @@ export function ReviewsList(props: ReviewsListProps) {
 	const [reviews, setReviews] = useState([] as Array<ReviewsResponse>);
 	const [error, setError] = useState('');
 
-	const errorMessage = 'Error occurred while trying to fetch reviews: ';
-
 	useEffect(() => {
+		const errorMessage = 'Error occurred while trying to fetch reviews: ';
 		fetch(`${process.env['NX_API_URL']}/api/reviews`)
 			.then((res) => res.json())
 			.then((data) => {

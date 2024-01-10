@@ -5,12 +5,10 @@ import nock = require('nock');
 import mockResponse from '../app/mocks/mockResponse';
 
 describe('App', () => {
-	beforeAll(() => {
-		nock('http://localhost:3333').persist().get('/api/reviews').reply(200, mockResponse);
-	});
 	it('should render successfully', async () => {
-		const { baseElement } = render(<App />);
+		nock('http://localhost:3333').persist().get('/api/reviews').reply(200, mockResponse);
 
+		const { baseElement } = render(<App />);
 		expect(baseElement).toBeTruthy();
 	});
 });
