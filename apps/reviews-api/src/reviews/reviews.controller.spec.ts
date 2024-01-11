@@ -49,7 +49,7 @@ describe('ReviewsController', () => {
 			}),
 			prisma.review.create({
 				data: {
-					id: '3',
+					id: '2',
 					reviewerId: user2Id,
 					companyId: company1Id,
 					createdOn: '2022-01-01T00:00:00.000Z',
@@ -57,7 +57,7 @@ describe('ReviewsController', () => {
 			}),
 			prisma.review.create({
 				data: {
-					id: '2',
+					id: '3',
 					reviewerId: user2Id,
 					companyId: company2Id,
 					createdOn: '2021-01-01T00:00:00.000Z',
@@ -81,13 +81,31 @@ describe('ReviewsController', () => {
 	});
 
 	describe('getReviews()', () => {
-		it.todo('should fetch all reviews');
+		it('should fetch all reviews', async () => {
+			const response = await request(app.getHttpServer()).get('/reviews');
+			expect(response.status).toBe(200);
+			expect(response.body).toHaveLength(3);
+		});
 
-		it.todo('should fetch reviews in descending order by date');
+		it('should fetch reviews in descending order by date', async () => {
+			const response = await request(app.getHttpServer()).get('/reviews');
+			// I set #2 as most recent, to verify sorting by date rather than id.
+			expect(response.body[0].id).toEqual('2');
+			expect(response.body[1].id).toEqual('3');
+			expect(response.body[2].id).toEqual('1');
+		});
 
-		it.todo('should include user data with review');
+		it('should include user data with review', async () => {
+			const response = await request(app.getHttpServer()).get('/reviews');
+			expect(response.body[0].user).toBeInstanceOf(Object);
+			expect(response.body[0].user.id).toContain('user-2');
+		});
 
-		it.todo('should include company data with review');
+		it('should include company data with review', async () => {
+			const response = await request(app.getHttpServer()).get('/reviews');
+			expect(response.body[0].company).toBeInstanceOf(Object);
+			expect(response.body[0].company.id).toContain('company-1');
+		});
 
 		// Feel free to add any additional tests you think are necessary
 	});
