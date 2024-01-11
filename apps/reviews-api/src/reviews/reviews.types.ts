@@ -1,14 +1,16 @@
-import { Company, Review, User } from '@prisma/client';
+import { Company, User } from '@prisma/client';
 
 export interface ReviewsCountResponse {
 	reviewsCount: number;
 }
 
-export interface ReviewExt extends Review {
+export interface ReviewsResponse {
+	id: string;
+	reviewerId: string;
+	companyId: string;
+	reviewText: string;
+	rating: number;
+	createdOn: string;
 	company: Company;
 	user: User;
-}
-
-export interface ReviewsResponse {
-	reviews: ReviewExt[];
 }
