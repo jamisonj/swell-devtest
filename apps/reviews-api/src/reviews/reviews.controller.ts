@@ -1,7 +1,6 @@
-import { Controller, Get, HttpException } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { ReviewsCountResponse, ReviewsResponse } from './reviews.types';
-import { HttpStatus } from '@nestjs/common';
 
 @Controller('reviews')
 export class ReviewsController {
